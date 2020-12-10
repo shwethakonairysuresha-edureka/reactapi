@@ -1,19 +1,19 @@
-import React from 'react'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
 
+const Sample = () => {
+  const [count, setCount] = useState(0);
+  // componentdidmount ===> init
+  // componentdidupdate =====>
+  // can be handled by useEffect ()
+  useEffect(() => {
+    document.title = `You clicked ${count} times`;
+  });
+  return (
+    <div>
+      <p>You clicked {count}</p>
+      <button onClick={() => setCount(count + 1)}>Click Me</button>
+    </div>
+  );
+};
 
-const sample = () => {
-
-    const [count, setCount] = useState(initialState)
-    useEffect(() => {
-        document.title = 'You Clicked ${count} times';
-    })
-    return (
-        <div>
-            <p>You Clicked {count}</p>
-            <button onClick={()=>setCount(count+1)}></button>
-        </div>
-    )
-}
-
-export default sample
+export default Sample;
