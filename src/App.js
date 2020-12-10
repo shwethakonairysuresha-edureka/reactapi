@@ -10,6 +10,39 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import PostList from './components/layouts/PostList'
 
+import {Provider} from 'react-redux';
+import store from './redux/store/store'
+
+function App() {
+  return (
+    <Provider store={store}>
+    <div className="App">
+      <Router>
+      <Header></Header>
+      <Route exact path = "/" component = {Landing}></Route>
+      <Route exact path = "/login" component = {Login}></Route>
+      <Route exact path = "/register" component = {Register}></Route>
+      {/*<Route exact path = "/sample" component = {sample}></Route>*/}
+      <Footer></Footer>
+      </Router>
+    </div>
+    </Provider>
+  );
+}
+
+export default App;
+
+
+
+
+
+
+
+
+
+
+
+
 const postList = [
   {
     id:1,
@@ -32,20 +65,3 @@ const postList = [
     user:'Kakashi'
   }
 ]
-
-function App() {
-  return (
-    <div className="App">
-      <Router>
-      <Header></Header>
-      <Route exact path = "/" component = {Landing}></Route>
-      <Route exact path = "/login" component = {Login}></Route>
-      <Route exact path = "/register" component = {Register}></Route>
-      <Route exact path = "/sample" component = {sample}></Route>
-      <Footer></Footer>
-      </Router>
-    </div>
-  );
-}
-
-export default App;
