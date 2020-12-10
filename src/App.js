@@ -36,18 +36,16 @@ const postList = [
 function App() {
   return (
     <div className="App">
-      <PostList posts = {postList}></PostList>
+      <Router>
+      <Header></Header>
+      <Route exact path = "/" component = {Landing}></Route>
+      <Route exact path = "/login" component = {Login}></Route>
+      <Route exact path = "/register" component = {Register}></Route>
+      <Route exact path = "/sample" component = {sample}></Route>
+      <Footer></Footer>
+      </Router>
     </div>
   );
 }
 
 export default App;
-
-{/*<Router>
-<Header></Header>
-<Route exact path = "/" component = {Landing}></Route>
-<Route exact path = "/login" component = {Login}></Route>
-<Route exact path = "/register" component = {Register}></Route>
-<Route exact path = "/sample" component = {sample}></Route>
-<Footer></Footer>
-</Router>*/}
