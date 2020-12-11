@@ -1,56 +1,64 @@
-import React, { Component } from "react";
-import axios from 'axios';
+import React, { Component, useState } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import {registerUser} from '../../redux/actions/authAction'
+import { Redirect } from 'react-router-dom'
 
-export default class Register extends Component {
-    constructor() {
-        super()
-        this.state = {
-            email : '',
-            username : '',
-            password : '',
-            password2 : '',
-            role : '',
-            errors : {} 
-        };
-        this.onChange = this.onChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+const Register = ({registerUser, isAuthenticated}) => {
+
+  const [formData, setFormData] = useState({
+    username:'',
+    email:'',
+    password:'',
+    password2:''
+  })
+
+  const {username, email, password, password2} = formData;
+
+  const handleChange = (event) => {
+    // When state of ur controller is changing then we are holding that changed value in state.
+    setFormData({...formData, [event.target.name]:event.target.value})
+  };
+
+  const onSubmit = (e) => {
+    const newUser = {
+      username : username,
+      email : email,
+      password : password,
+      role : ['user']
+    };
+    e.preventDefault();
+    console.log('Hello from Submit');
+    console.log(JSON.stringify(formData));
+
+    if(password!== password2) {
+      console.log('problem')
     }
-
-    onChange(e) {
-        this.setState({[e.target.name]:e.target.value});
+    else{
+      // action 
+      registerUser(formData)
     }
+  }
 
-    onSubmit(e) {
-        const newUser = {
-            username : this.state.username,
-            email : this.state.email,
-            password : this.state.password,
-            role : ['user']
-        };
-        e.preventDefault();
-        console.log('Hello from Submit');
-        console.log(JSON.stringify(this.state));
-        axios.post('http://localhost:9010/api/auth/signup', newUser)
-        .then(res => console.log(JSON.stringify(res)))
-        .catch(err => console.log(JSON.stringify(err)));
-    }
+  if(isAuthenticated) {
+    return <Redirect to ='/login'></Redirect>
+  }
 
-  render() {
-    return (
-      <div className="register">
+  return (
+    <div className="register">
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>
               <p className="lead text-center">Create your DevConnector account</p>
-              <form onSubmit={this.onSubmit}>
+              <form onSubmit={onSubmit}>
                 <div className="form-group">
                   <input
                     type="text"
                     className="form-control form-control-lg"
                     placeholder="Name"
                     name="username"
-                    required value = {this.state.username} onChange = {this.onChange}
+                    required value = {username} onChange = {handleChange}
                   />
                 </div>
                 <div className="form-group">
@@ -58,7 +66,7 @@ export default class Register extends Component {
                     type="email"
                     className="form-control form-control-lg"
                     placeholder="Email Address"
-                    name="email" value = {this.state.email} onChange = {this.onChange}
+                    name="email" value = {email} onChange = {handleChange}
                   />
                   <small className="form-text text-muted">
                     This site uses Gravatar so if you want a profile image, use
@@ -70,7 +78,7 @@ export default class Register extends Component {
                     type="password"
                     className="form-control form-control-lg"
                     placeholder="Password"
-                    name="password" value = {this.state.password} onChange = {this.onChange}
+                    name="password" value = {password} onChange = {handleChange}
                   />
                 </div>
                 <div className="form-group">
@@ -78,7 +86,7 @@ export default class Register extends Component {
                     type="password"
                     className="form-control form-control-lg"
                     placeholder="Confirm Password"
-                    name="password2" value = {this.state.password2} onChange = {this.onChange}
+                    name="password2" value = {password2} onChange = {handleChange}
                   />
                 </div>
                 <input type="submit" className="btn btn-info btn-block mt-4" />
@@ -87,6 +95,20 @@ export default class Register extends Component {
           </div>
         </div>
       </div>
-    );
-  }
+  )
 }
+
+Register.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired,
+  registerUser: PropTypes.func.isRequired
+}
+
+const mapStateToProps = (state) => ({
+  isAuthenticated : state.auth.isAuthenticated
+})
+
+const mapDispatchToProps = {
+  
+}
+
+export default connect(mapStateToProps, {registerUser})(Register)
