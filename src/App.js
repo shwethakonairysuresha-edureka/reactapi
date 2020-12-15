@@ -3,11 +3,18 @@ import "./App.css";
 import Header from "./components/layouts/Header";
 import Landing from "./components/layouts/Landing";
 import Footer from "./components/layouts/Footer";
+import AdminDashboard from "./components/layouts/AdminDashboard";
+import UserDashboard from "./components/layouts/UserDashboard";
+import Product from "./components/layouts/Product";
 import sample from "./components/layouts/Sample";
 
 import { BrowserRouter as Router, Route} from 'react-router-dom'
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
+import AddProduct from "./components/auth/AddProduct";
+import UpdateProduct from "./components/auth/UpdateProduct";
+import UpdateProduct1 from "./components/auth/UpdateProduct1";
+import DeleteProduct from "./components/auth/DeleteProduct";
 import PostList from './components/layouts/PostList'
 
 import {Provider} from 'react-redux';
@@ -22,6 +29,13 @@ function App() {
       <Route exact path = "/" component = {Landing}></Route>
       <Route exact path = "/login" component = {Login}></Route>
       <Route exact path = "/register" component = {Register}></Route>
+      <Route exact path = "/admindashboard" component = {AdminDashboard}></Route>
+      <Route exact path = "/userdashboard" component = {UserDashboard}></Route>
+      <Route exact path = "/product" component = {Product}></Route>
+      <Route exact path = "/addproduct" component = {AddProduct}></Route>
+      <Route exact path = "/updateproduct" component = {UpdateProduct}></Route>
+      <Route exact path = "/updateproduct1" component = {UpdateProduct1}></Route>
+      <Route exact path = "/deleteproduct" component = {DeleteProduct}></Route>
       {/*<Route exact path = "/sample" component = {sample}></Route>*/}
       <Footer></Footer>
       </Router>
